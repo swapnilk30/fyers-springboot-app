@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title th:text="${title}">My Spring Boot App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <header class="mb-4">
+      <h1 class="h3" th:text="${title}">My Spring Boot App</h1>
+      <p class="text-muted" th:text="${message}">Welcome to the application.</p>
+    </header>
+
+    <section class="mb-4">
+      <h2 class="h5">Items</h2>
+      <ul class="list-group">
+        <li class="list-group-item" th:each="item : ${items}" th:text="${item}">Sample item</li>
+        <li class="list-group-item" th:if="${items == null or #lists.isEmpty(items)}">No items available</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="h5">Add Item</h2>
+      <form th:action="@{/add}" method="post" class="row g-2">
+        <div class="col-auto">
+          <input name="name" class="form-control" placeholder="Item name" required />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </section>
+
+    <footer class="mt-5 text-muted small">
+      &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2026</span> My Company
+    </footer>
+  </div>
+</body>
+</html>

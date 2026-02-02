@@ -11,11 +11,18 @@ public class FyersClientProvider {
 
     private final ConfigFileReaderUtil configFileReaderUtil;
 
+    private FyersClass cachedClient;
+
     public FyersClientProvider(ConfigFileReaderUtil configFileReaderUtil) {
         this.configFileReaderUtil = configFileReaderUtil;
     }
 
-    public FyersClass getClient() {
+    public synchronized FyersClass getClient() {
+
+        // return cached instance if already created
+        if (cachedClient != null) {
+            return cachedClient;
+        }
 
         // Read YAML config
         Map<String, Object> config = configFileReaderUtil.readConfigYaml();
@@ -30,11 +37,23 @@ public class FyersClientProvider {
 
         String accessToken = tokenMap.get("access_token");
 
-        // Create Fyers client
+        // Create client ONCE
         FyersClass fyersClass = FyersClass.getInstance();
         fyersClass.clientId = clientId;
         fyersClass.accessToken = accessToken;
 
-        return fyersClass;
+        cachedClient = fyersClass;
+
+        return cachedClient;
+    }
+
+
+    /**
+     * Call this when token is refreshed
+     */
+    public synchronized void refreshAccessToken(String newToken) {
+        if (cachedClient != null) {
+            cachedClient.accessToken = newToken;
+        }
     }
 }

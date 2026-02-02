@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fyers Funds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 70%;
+            background: #fff;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #f0f0f0;
+        }
+        .amount {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Funds Summary</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Equity Amount</th>
+        <th>Commodity Amount</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="fund : ${fundList}">
+        <td th:text="${fund.title}"></td>
+        <td class="amount" th:text="${fund.equityAmount}"></td>
+        <td class="amount" th:text="${fund.commodityAmount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

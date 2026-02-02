@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fyers Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            background: #fff;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f0f0f0;
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Fyers User Profile</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <td th:text="${profile.name}"></td>
+    </tr>
+    <tr>
+        <th>FY ID</th>
+        <td th:text="${profile.fy_id}"></td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td th:text="${profile.email_id}"></td>
+    </tr>
+    <tr>
+        <th>Mobile</th>
+        <td th:text="${profile.mobile_number}"></td>
+    </tr>
+    <tr>
+        <th>PAN</th>
+        <td th:text="${profile.PAN}"></td>
+    </tr>
+    <tr>
+        <th>TOTP Enabled</th>
+        <td th:text="${profile.totp}"></td>
+    </tr>
+    <tr>
+        <th>DDPI Enabled</th>
+        <td th:text="${profile.ddpi_enabled}"></td>
+    </tr>
+    <tr>
+        <th>MTF Enabled</th>
+        <td th:text="${profile.mtf_enabled}"></td>
+    </tr>
+    <tr>
+        <th>Password Expiry (days)</th>
+        <td th:text="${profile.pwd_to_expire}"></td>
+    </tr>
+    <tr>
+        <th>PIN Change Date</th>
+        <td th:text="${profile.pin_change_date}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

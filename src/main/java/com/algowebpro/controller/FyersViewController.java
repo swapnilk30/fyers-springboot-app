@@ -44,5 +44,59 @@ public class FyersViewController {
 
         return "fyers/funds";
     }
+    
+    @GetMapping("/holdings")
+    public String holdings(Model model) {
 
+        JSONObject response = fyersApiService.getHoldings();
+
+        // holdings array
+        model.addAttribute(
+                "holdings",
+                response.getJSONArray("holdings").toList()
+        );
+
+        // overall summary
+        model.addAttribute(
+                "overall",
+                response.getJSONObject("overall").toMap()
+        );
+
+        return "fyers/holdings";
+    }
+    
+    @GetMapping("/tradebook")
+    public String tradeBook(Model model) {
+
+        JSONObject response = fyersApiService.getTradeBook();
+
+        // Extract tradeBook array
+        model.addAttribute(
+                "trades",
+                response.getJSONArray("tradeBook").toList()
+        );
+
+        return "fyers/tradebook";
+    }
+    
+    @GetMapping("/positions")
+    public String positions(Model model) {
+
+        JSONObject response = fyersApiService.getPositions();
+
+        // positions array
+        model.addAttribute(
+                "positions",
+                response.getJSONArray("netPositions").toList()
+        );
+
+        // overall summary
+        model.addAttribute(
+                "overall",
+                response.getJSONObject("overall").toMap()
+        );
+
+        return "fyers/positions";
+    }
+    
 }

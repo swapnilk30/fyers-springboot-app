@@ -29,4 +29,22 @@ public class FyersController {
     public String funds() {
         return fyersApiService.getFunds().toString();
     }
+    
+    @GetMapping("/holdings")
+    public String holdings() {
+        return fyersApiService.getHoldings().toString();
+    }   
+    
+
+    @GetMapping("/tradebook")
+    public String tradebook() {
+        return fyersApiService.getTradeBook().toString();
+    }  
+    
+    @GetMapping("/positions")
+    public String positions() {
+        return fyersApiService.getPositions().toString();
+    }  
+        
+    
 }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fyers Positions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+            padding: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: right;
+            font-size: 14px;
+        }
+        th {
+            background: #f0f0f0;
+            text-align: center;
+        }
+        td.symbol {
+            text-align: left;
+            font-weight: bold;
+        }
+        .profit {
+            color: green;
+            font-weight: bold;
+        }
+        .loss {
+            color: red;
+            font-weight: bold;
+        }
+        .summary {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            width: 45%;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Positions Summary</h2>
+
+<div class="summary">
+    <p><b>Total Positions:</b> <span th:text="${overall.count_total}"></span></p>
+    <p><b>Open Positions:</b> <span th:text="${overall.count_open}"></span></p>
+    <p>
+        <b>Total P&L:</b>
+        <span th:text="${overall.pl_total}"
+              th:class="${overall.pl_total >= 0 ? 'profit' : 'loss'}"></span>
+    </p>
+    <p>
+        <b>Realized P&L:</b>
+        <span th:text="${overall.pl_realized}"
+              th:class="${overall.pl_realized >= 0 ? 'profit' : 'loss'}"></span>
+    </p>
+    <p>
+        <b>Unrealized P&L:</b>
+        <span th:text="${overall.pl_unrealized}"
+              th:class="${overall.pl_unrealized >= 0 ? 'profit' : 'loss'}"></span>
+    </p>
+</div>
+
+<h2>Open Positions</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Symbol</th>
+        <th>Side</th>
+        <th>Qty</th>
+        <th>Avg Price</th>
+        <th>LTP</th>
+        <th>Realized P&L</th>
+        <th>Unrealized P&L</th>
+        <th>Total P&L</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="p : ${positions}">
+        <td class="symbol" th:text="${p.symbol}"></td>
+
+        <td th:text="${p.side == 1 ? 'BUY' : 'SELL'}"></td>
+
+        <td th:text="${p.netQty}"></td>
+        <td th:text="${p.netAvg}"></td>
+        <td th:text="${p.ltp}"></td>
+
+        <td th:text="${p.realized_profit}"
+            th:class="${p.realized_profit >= 0 ? 'profit' : 'loss'}"></td>
+
+        <td th:text="${p.unrealized_profit}"
+            th:class="${p.unrealized_profit >= 0 ? 'profit' : 'loss'}"></td>
+
+        <td th:text="${p.pl}"
+            th:class="${p.pl >= 0 ? 'profit' : 'loss'}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

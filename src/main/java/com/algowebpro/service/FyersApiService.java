@@ -57,5 +57,15 @@ public class FyersApiService {
             throw new RuntimeException("TradeBook Error: " + response.Item2());
         }
     }
+    
+	public JSONObject getPositions() {
+		FyersClass fyers = fyersClientProvider.getClient();
+		Tuple<JSONObject, JSONObject> response = fyers.GetPositions();
+		if (response.Item2() == null) {
+			return response.Item1();
+		} else {
+			throw new RuntimeException("Positions Error: " + response.Item2());
+		}
+	}
 
 }

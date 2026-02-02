@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fyers Holdings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+            padding: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: right;
+        }
+        th {
+            background: #f0f0f0;
+            text-align: center;
+        }
+        td.symbol {
+            text-align: left;
+            font-weight: bold;
+        }
+        .profit {
+            color: green;
+            font-weight: bold;
+        }
+        .loss {
+            color: red;
+            font-weight: bold;
+        }
+        .summary {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Holdings Summary</h2>
+
+<div class="summary">
+    <p><b>Total Holdings:</b> <span th:text="${overall.count_total}"></span></p>
+    <p><b>Total Investment:</b> <span th:text="${overall.total_investment}"></span></p>
+    <p><b>Current Value:</b> <span th:text="${overall.total_current_value}"></span></p>
+    <p>
+        <b>Total P&L:</b>
+        <span th:text="${overall.total_pl}"
+              th:class="${overall.total_pl >= 0 ? 'profit' : 'loss'}"></span>
+    </p>
+    <p>
+        <b>P&L %:</b>
+        <span th:text="${overall.pnl_perc}"
+              th:class="${overall.pnl_perc >= 0 ? 'profit' : 'loss'}"></span>
+    </p>
+</div>
+
+<h2>Holdings Details</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Symbol</th>
+        <th>Qty</th>
+        <th>Cost</th>
+        <th>LTP</th>
+        <th>Market Value</th>
+        <th>P&L</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="h : ${holdings}">
+        <td class="symbol" th:text="${h.symbol}"></td>
+        <td th:text="${h.quantity}"></td>
+        <td th:text="${h.costPrice}"></td>
+        <td th:text="${h.ltp}"></td>
+        <td th:text="${h.marketVal}"></td>
+        <td th:text="${h.pl}"
+            th:class="${h.pl >= 0 ? 'profit' : 'loss'}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
